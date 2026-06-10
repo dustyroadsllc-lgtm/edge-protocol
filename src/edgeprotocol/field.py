@@ -152,6 +152,14 @@ def run_field_session(bank: dict[str, Any], product: str, question_id: str, run_
     if is_c1:
         _print("  [C1 control] BAL penalty display suppressed; BN is the metric here.")
 
+    if suggestion.bal_confidence == scoring.MEDIUM:
+        _print(
+            "  REVIEWER RULE (protocol/REVIEWER_RULES.md): an arrival counts only if "
+            "yes/no answers the ASKED predicate. Affirmations of adjacent values "
+            "('Yes, privacy is very important to us') are overridden to no-arrival. "
+            "Log a one-line reason for any override in notes.",
+            "yellow",
+        )
     bal_final = input(f"  BAL_auto={suggestion.bal_auto} ({suggestion.bal_confidence}). BAL_final [Enter=accept, or 0-3/X]: ").strip() or suggestion.bal_auto
     nmr_final = input(f"  NMR_auto={suggestion.nmr_auto}. NMR_final [Enter=accept, or 0.0-1.0]: ").strip() or str(suggestion.nmr_auto)
     _print(f"  SA (secondary): safe={suggestion.sa_safe} asked={suggestion.sa_asked}")
