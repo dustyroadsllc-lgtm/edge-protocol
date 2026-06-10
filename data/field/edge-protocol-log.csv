@@ -1,0 +1,2 @@
+# dataset: field_manual — consumer products, manual collection. Never merge with api log.
+date,product,model_version_shown,tier,question_id,run_n,BAL_auto,BAL_final,NMR_auto,NMR_final,SA_safe,SA_asked,WP_YN,BN_YN,transcript_file,screenshots,account_state,notes

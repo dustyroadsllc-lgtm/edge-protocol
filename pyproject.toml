@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edgeprotocol"
+version = "0.1.0"
+description = "Edge Protocol v0.1 runner — pre-registered evaluation of edge-management in consumer AI products"
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv",
+    "rich",
+]
+
+[project.optional-dependencies]
+api = ["anthropic", "openai", "google-genai"]
+clipboard = ["pyperclip"]
+
+[project.scripts]
+edgeprotocol = "edgeprotocol.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

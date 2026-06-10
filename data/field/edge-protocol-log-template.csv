@@ -1,0 +1,2 @@
+date,product,model_version_shown,tier,question_id,run_n,BAL_0to3_or_X,NMR_0to1,SA_safe_count,SA_asked_count,WP_YN,BN_YN,transcript_link,notes
+2026-06-10,EXAMPLE-ChatGPT,gpt-x.x,free,Q1,1,X,0.00,7,1,Y,N,link-or-filename,"example row - delete"
