@@ -1,0 +1,7 @@
+# Byte-exact data trail: disable ALL line-ending conversion in this repo.
+#
+# The protocol's integrity mechanism is a SHA-256 of the bank file's exact
+# bytes. Git's autocrlf conversion (default on Windows) would rewrite LF to
+# CRLF on checkout, silently changing the hash and making every clone fail
+# its own lock verification. Nothing in this repo is ever converted.
+* -text
