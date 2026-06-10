@@ -1,0 +1,10 @@
+{
+  // Single-driver rule: this repo is a chain-of-custody artifact.
+  // Copilot inline suggestions and completions are disabled for this
+  // workspace so no second agent writes to it ambiently.
+  "github.copilot.enable": {
+    "*": false
+  },
+  "github.copilot.editor.enableAutoCompletions": false,
+  "chat.commandCenter.enabled": false
+}

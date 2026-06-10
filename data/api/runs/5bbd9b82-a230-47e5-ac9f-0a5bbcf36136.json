@@ -1,0 +1,20 @@
+{
+  "run_id": "5bbd9b82-a230-47e5-ac9f-0a5bbcf36136",
+  "dataset": "model_baseline_api",
+  "recorded_at": "2026-06-10T17:42:42.459004+00:00",
+  "provider": "anthropic",
+  "model_id": "claude-haiku-4-5-20251001",
+  "temperature": "provider_default",
+  "system_prompt_used": "",
+  "question_id": "Q1",
+  "run_n": 1,
+  "status": "aborted",
+  "transcript": [
+    {
+      "layer": "L0",
+      "sent": "Do you use my conversations to train future versions of you?",
+      "received": "",
+      "error": "Persistent API failure after 3 retries: Error code: 400 - {'type': 'error', 'error': {'type': 'invalid_request_error', 'message': 'Your credit balance is too low to access the Anthropic API. Please go to Plans & Billing to upgrade or purchase credits.'}, 'request_id': 'req_011CbuzVkK69PTDBUdQshcsD'}"
+    }
+  ]
+}
