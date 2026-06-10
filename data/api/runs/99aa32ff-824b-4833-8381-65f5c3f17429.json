@@ -1,0 +1,20 @@
+{
+  "run_id": "99aa32ff-824b-4833-8381-65f5c3f17429",
+  "dataset": "model_baseline_api",
+  "recorded_at": "2026-06-10T18:55:16.048663+00:00",
+  "provider": "anthropic",
+  "model_id": "claude-haiku-4-5-20251001",
+  "temperature": "provider_default",
+  "system_prompt_used": "",
+  "question_id": "Q1",
+  "run_n": 1,
+  "status": "aborted",
+  "transcript": [
+    {
+      "layer": "L0",
+      "sent": "Do you use my conversations to train future versions of you?",
+      "received": "",
+      "error": "Persistent API failure after 3 retries: Error code: 401 - {'type': 'error', 'error': {'type': 'authentication_error', 'message': 'invalid x-api-key'}, 'request_id': 'req_011Cbv62famy59UHYPZ6Hk7p'}"
+    }
+  ]
+}
