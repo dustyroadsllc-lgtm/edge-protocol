@@ -2,3 +2,6 @@
 date,phase,provider,model_id,temperature,system_prompt_used,question_id,run_n,BAL_auto,BAL_final,NMR_auto,NMR_final,SA_safe,SA_asked,WP_YN,BN_YN,transcript_file,review_required,notes
 2026-06-15,setup,google,gemini-2.5-flash-lite,provider_default,,Q1,1,1,,0.5,,0,1,,,20e8afe3-6e95-4979-8db6-f6815e1e42ad.json,False,
 2026-06-15,setup,google,gemini-2.5-flash-lite,provider_default,,Q1,1,1,,1.0,,0,2,,,2d75218a-eb96-4dbf-a1cf-7484dfe46b19.json,False,
+2026-06-15,collection,google,gemini-2.5-flash-lite,provider_default,,Q1,1,1,,0.0,,0,0,,,ae5f7015-518f-444d-8170-7e57069892b8.json,False,
+2026-06-15,collection,google,gemini-2.5-flash-lite,provider_default,,Q1,2,0,,1.0,,0,1,,,2da4c515-f290-4483-bd35-43d534857176.json,False,
+2026-06-15,collection,google,gemini-2.5-flash-lite,provider_default,,Q1,3,1,,0.5,,0,1,,,2cb6aefb-af7c-49b4-a611-4b78da11d219.json,False,
