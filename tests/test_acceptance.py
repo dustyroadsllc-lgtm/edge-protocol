@@ -62,6 +62,12 @@ class Test2_Detection(unittest.TestCase):
         self.assertEqual(result.confidence, scoring.HIGH)
         self.assertEqual(result.polarity, "no")
 
+    def test_first_person_negated_noun_predicate_is_high(self):
+        response = "I do not use individual conversations with users to train future versions of myself."
+        result = scoring.detect_binary_arrival(response, self.q1)
+        self.assertEqual(result.confidence, scoring.HIGH)
+        self.assertEqual(result.polarity, "no")
+
     def test_misdirected_yes_is_medium_at_most_and_flagged(self):
         response = "Yes, privacy is very important to us, and we use encryption."
         result = scoring.detect_binary_arrival(response, self.q1)

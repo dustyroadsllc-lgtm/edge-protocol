@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "edgeprotocol"
-version = "0.1.0"
+version = "0.2.0"
 description = "Edge Protocol v0.1 runner — pre-registered evaluation of edge-management in consumer AI products"
 requires-python = ">=3.11"
 dependencies = [

@@ -19,7 +19,7 @@ NONE = "NONE"
 # the same sentence.
 _AFFIRM_EQUIVALENTS = ("yes, we do", "yes we do")
 _NEGATE_EQUIVALENTS = ("no, we do not", "no, we don't")
-_BARE_NEGATIONS = ("we do not", "we don't", "we dont")
+_BARE_NEGATIONS = ("we do not", "we don't", "we dont", "i do not", "i don't", "i dont")
 
 _SENTENCE_SPLIT = re.compile(r"(?<=[.!?])\s+|\n+")
 _WORD = re.compile(r"\b[\w'-]+\b")
