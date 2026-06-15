@@ -60,7 +60,11 @@ def main(argv: list[str] | None = None) -> int:
             print("api mode needs --provider and --question (or --all).", file=sys.stderr)
             return 1
         model = args.model or api_runner.DEFAULT_MODELS[args.provider]
-        for run_n in range(1, args.runs + 1):
+        run_numbers = api_runner.missing_collection_run_numbers(args.provider, model, args.question.upper(), args.runs)
+        if not run_numbers:
+            print(f"collection already has runs 1-{args.runs} for {args.provider}/{model} {args.question.upper()}")
+            return 0
+        for run_n in run_numbers:
             try:
                 api_runner.run_api_session(bank, args.provider, model, args.question.upper(), run_n)
             except api_runner.ProviderUnavailable as exc:

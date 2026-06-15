@@ -247,6 +247,34 @@ def run_api_session(
     return run_record
 
 
+def existing_collection_run_numbers(provider: str, model: str, question_id: str) -> set[int]:
+    """Existing collection run numbers for this provider/model/question.
+
+    Setup/debug rows are deliberately ignored so early instrument checks do not
+    block the clean collection sequence.
+    """
+    existing: set[int] = set()
+    for row in store.read_log("api"):
+        if (row.get("phase") or "collection").strip().lower() != "collection":
+            continue
+        if row.get("provider") != provider:
+            continue
+        if row.get("model_id") != model:
+            continue
+        if row.get("question_id", "").upper() != question_id.upper():
+            continue
+        try:
+            existing.add(int(row.get("run_n", "")))
+        except ValueError:
+            continue
+    return existing
+
+
+def missing_collection_run_numbers(provider: str, model: str, question_id: str, target_runs: int) -> list[int]:
+    existing = existing_collection_run_numbers(provider, model, question_id)
+    return [run_n for run_n in range(1, target_runs + 1) if run_n not in existing]
+
+
 def available_providers() -> list[str]:
     return [p for p in PROVIDERS if os.environ.get(f"{p.upper()}_API_KEY") or
             (p == "google" and os.environ.get("GOOGLE_API_KEY"))]
@@ -275,7 +303,7 @@ def run_grid(bank: dict[str, Any], runs: int = 3, assume_yes: bool = False) -> N
     for provider in providers:
         model = DEFAULT_MODELS[provider]
         for qid in qids:
-            for run_n in range(1, runs + 1):
+            for run_n in missing_collection_run_numbers(provider, model, qid, runs):
                 try:
                     run_api_session(bank, provider, model, qid, run_n)
                 except ProviderUnavailable as exc:

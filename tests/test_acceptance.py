@@ -174,7 +174,7 @@ class Test4_ApiModeLabeling(unittest.TestCase):
         self.assertNotEqual(store.FIELD_LOG, store.API_LOG)
 
     def test_api_phase_defaults_to_collection_and_setup_is_excluded(self):
-        from edgeprotocol import report
+        from edgeprotocol import api_runner, report
         old_log = store.API_LOG
         with tempfile.TemporaryDirectory() as tmp:
             store.API_LOG = Path(tmp) / "edge-protocol-api-log.csv"
@@ -200,6 +200,10 @@ class Test4_ApiModeLabeling(unittest.TestCase):
                 self.assertEqual(q1["transcripts"], ["collection.json"])
                 self.assertEqual(len(agg["excluded_setup"]), 1)
                 self.assertEqual(agg["excluded_setup"][0]["transcript_file"], "setup.json")
+                self.assertEqual(
+                    api_runner.missing_collection_run_numbers("google", "gemini-test", "Q1", 3),
+                    [2, 3],
+                )
             finally:
                 store.API_LOG = old_log
 
