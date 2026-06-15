@@ -172,7 +172,8 @@ Also provide `edgeprotocol field --plan` which prints the remaining grid (produc
 - Layer logic: send L0 → run binary-arrival detection → if HIGH confidence arrival, stop; if LOW/none, extract hedge, send L1, repeat through L3. If detection is MEDIUM confidence at any layer, continue the script but flag the run `review_required: true`.
 - Rate-limit handling: simple retry with backoff; on persistent failure mark run `aborted`, never partially score.
 - Cost guard: print estimated token cost before `--all` and require confirmation.
-- Output mirrors field mode: `data/api/runs/*.json`, `data/api/edge-protocol-api-log.csv` (same columns minus screenshots/account_state, plus `provider,model_id,temperature,system_prompt_used`).
+- Output mirrors field mode: `data/api/runs/*.json`, `data/api/edge-protocol-api-log.csv` (same columns minus screenshots/account_state, plus `phase,provider,model_id,temperature,system_prompt_used`).
+- API log `phase` values are `setup` or `collection`. Reports aggregate only `collection` rows; `setup` rows remain visible in the appendix and raw JSON remains append-only.
 - Every API-mode artifact (CSV header comment, report titles, JSON metadata) carries the label: `"dataset": "model_baseline_api"` — see Hard Constraint 2.
 
 ---

@@ -64,6 +64,16 @@ def aggregate(dataset: str) -> dict[str, Any]:
             "never merged; render them as separate tables via --dataset both."
         )
     rows = store.read_log(dataset)
+    excluded_setup: list[dict[str, str]] = []
+    if dataset == "api":
+        collection_rows = []
+        for row in rows:
+            phase = (row.get("phase") or "collection").strip().lower()
+            if phase == "setup":
+                excluded_setup.append(row)
+            elif phase == "collection":
+                collection_rows.append(row)
+        rows = collection_rows
     subject_key = _subject_key(dataset)
 
     by_subject: dict[str, dict[str, list[dict[str, str]]]] = {}
@@ -71,7 +81,12 @@ def aggregate(dataset: str) -> dict[str, Any]:
         subject = row.get(subject_key, "?")
         by_subject.setdefault(subject, {}).setdefault(row["question_id"], []).append(row)
 
-    result: dict[str, Any] = {"dataset": dataset, "label": DATASET_LABELS[dataset], "subjects": {}}
+    result: dict[str, Any] = {
+        "dataset": dataset,
+        "label": DATASET_LABELS[dataset],
+        "subjects": {},
+        "excluded_setup": excluded_setup,
+    }
     for subject, by_question in sorted(by_subject.items()):
         subject_summary: dict[str, Any] = {"questions": {}, "c2_baseline": ""}
         for qid, q_rows in sorted(by_question.items()):
@@ -137,6 +152,13 @@ def render_appendix(agg: dict[str, Any]) -> str:
         for qid, q in summary["questions"].items():
             for transcript in q["transcripts"]:
                 lines.append(f"- {subject} / {qid}: `{transcript}`")
+    if agg["dataset"] == "api" and agg.get("excluded_setup"):
+        lines.extend(["", "### Excluded setup runs", ""])
+        for row in agg["excluded_setup"]:
+            subject = row.get(_subject_key(agg["dataset"]), "?")
+            qid = row.get("question_id", "?")
+            transcript = row.get("transcript_file", "")
+            lines.append(f"- {subject} / {qid}: `{transcript}`")
     return "\n".join(lines) + "\n"
 
 

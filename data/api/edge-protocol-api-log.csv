@@ -1,0 +1,4 @@
+# dataset: model_baseline_api — raw models via official APIs. Never merge with field log.
+date,phase,provider,model_id,temperature,system_prompt_used,question_id,run_n,BAL_auto,BAL_final,NMR_auto,NMR_final,SA_safe,SA_asked,WP_YN,BN_YN,transcript_file,review_required,notes
+2026-06-15,setup,google,gemini-2.5-flash-lite,provider_default,,Q1,1,1,,0.5,,0,1,,,20e8afe3-6e95-4979-8db6-f6815e1e42ad.json,False,
+2026-06-15,setup,google,gemini-2.5-flash-lite,provider_default,,Q1,1,1,,1.0,,0,2,,,2d75218a-eb96-4dbf-a1cf-7484dfe46b19.json,False,

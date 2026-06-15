@@ -27,7 +27,7 @@ FIELD_COLUMNS = [
 ]
 
 API_COLUMNS = [
-    "date", "provider", "model_id", "temperature", "system_prompt_used",
+    "date", "phase", "provider", "model_id", "temperature", "system_prompt_used",
     "question_id", "run_n",
     "BAL_auto", "BAL_final", "NMR_auto", "NMR_final", "SA_safe", "SA_asked",
     "WP_YN", "BN_YN", "transcript_file", "review_required", "notes",
@@ -70,6 +70,7 @@ def append_log_row(dataset: str, row: dict[str, Any]) -> Path:
     elif dataset == "api":
         log_path, columns = API_LOG, API_COLUMNS
         header_comment = "# dataset: model_baseline_api — raw models via official APIs. Never merge with field log.\n"
+        row.setdefault("phase", "collection")
     else:
         raise ValueError(f"Unknown dataset {dataset!r}")
 

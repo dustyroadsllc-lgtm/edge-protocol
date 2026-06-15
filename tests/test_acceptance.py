@@ -173,6 +173,36 @@ class Test4_ApiModeLabeling(unittest.TestCase):
         self.assertNotEqual(store.FIELD_RUNS, store.API_RUNS)
         self.assertNotEqual(store.FIELD_LOG, store.API_LOG)
 
+    def test_api_phase_defaults_to_collection_and_setup_is_excluded(self):
+        from edgeprotocol import report
+        old_log = store.API_LOG
+        with tempfile.TemporaryDirectory() as tmp:
+            store.API_LOG = Path(tmp) / "edge-protocol-api-log.csv"
+            try:
+                store.append_log_row("api", {
+                    "date": "2026-06-15",
+                    "provider": "google",
+                    "model_id": "gemini-test",
+                    "question_id": "Q1",
+                    "run_n": 1,
+                    "BAL_auto": "0",
+                    "NMR_auto": "1.0",
+                    "transcript_file": "collection.json",
+                })
+                content = store.API_LOG.read_text(encoding="utf-8")
+                setup = content.replace(",collection,google,", ",setup,google,")
+                setup = setup.replace("collection.json", "setup.json")
+                store.API_LOG.write_text(setup + content.splitlines(keepends=True)[-1], encoding="utf-8")
+
+                agg = report.aggregate("api")
+                q1 = agg["subjects"]["gemini-test"]["questions"]["Q1"]
+                self.assertEqual(q1["n_runs"], 1)
+                self.assertEqual(q1["transcripts"], ["collection.json"])
+                self.assertEqual(len(agg["excluded_setup"]), 1)
+                self.assertEqual(agg["excluded_setup"][0]["transcript_file"], "setup.json")
+            finally:
+                store.API_LOG = old_log
+
 
 class Test5_NoCrossDatasetStats(unittest.TestCase):
     """report.py refuses to compute any statistic across datasets."""

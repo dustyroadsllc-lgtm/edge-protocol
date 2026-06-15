@@ -188,6 +188,7 @@ def run_api_session(
         "dataset": "model_baseline_api",
         "recorded_at": store.utc_now(),
         "provider": provider,
+        "phase": "collection",
         "model_id": model,
         "temperature": "provider_default",
         "system_prompt_used": "",
@@ -222,6 +223,7 @@ def run_api_session(
     json_path = store.write_run_json("api", run_record)
     store.append_log_row("api", {
         "date": store.utc_now()[:10],
+        "phase": "collection",
         "provider": provider,
         "model_id": model,
         "temperature": "provider_default",

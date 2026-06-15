@@ -48,6 +48,8 @@ edgeprotocol report --dataset field
 edgeprotocol report --dataset both                 # two separated tables, never merged
 ```
 
+API log rows include `phase=setup|collection`. Reports aggregate only collection rows; setup/debug rows stay in the appendix and raw run JSON remains append-only.
+
 ## Tests
 
 ```
